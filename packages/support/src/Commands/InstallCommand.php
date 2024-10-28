@@ -20,7 +20,7 @@ class InstallCommand extends Command
 
     protected $signature = 'filament:install {--scaffold} {--actions} {--forms} {--infolists} {--notifications} {--panels} {--tables} {--widgets} {--F|force}';
 
-    protected $description = 'Install Filament.';
+    protected $description = 'Install Filament';
 
     public function __invoke(): int
     {
@@ -136,7 +136,7 @@ class InstallCommand extends Command
             '@tailwindcss/typography' => '^0.5.4',
             'autoprefixer' => '^10.4.7',
             'postcss' => '^8.4.14',
-            'postcss-nesting' => '^12.0.1',
+            'postcss-nesting' => '^13.0.0',
             'tailwindcss' => '^3.1',
             ...Arr::except($packages, [
                 'axios',
