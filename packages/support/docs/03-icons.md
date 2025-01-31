@@ -24,7 +24,7 @@ Now that the default set exists in the config file, you can simply put any icons
 
 ## Replacing the default icons
 
-Filament includes an icon management system that allows you to replace any icons are used by default in the UI with your own. This happens in the `boot()` method of any service provider, like `AppServiceProvider`, or even a dedicated service provider for icons. If you wanted to build a plugin to replace Heroicons with a different set, you could absolutely do that by creating a Laravel package with a similar service provider.
+Filament includes an icon management system that allows you to replace any icons that are used by default in the UI with your own. This happens in the `boot()` method of any service provider, like `AppServiceProvider`, or even a dedicated service provider for icons. If you wanted to build a plugin to replace Heroicons with a different set, you could absolutely do that by creating a Laravel package with a similar service provider.
 
 To replace an icon, you can use the `FilamentIcon` facade. It has a `register()` method, which accepts an array of icons to replace. The key of the array is the unique [icon alias](#available-icon-aliases) that identifies the icon in the Filament UI, and the value is name of a Blade icon to replace it instead. Alternatively, you may use HTML instead of an icon name to render an icon from a Blade view for example:
 
@@ -159,6 +159,7 @@ Alternatively, you may pass an SVG element into the component's slot instead of 
 - `tables::filters.remove-all-button` - Button to remove all filters
 - `tables::grouping.collapse-button` - Button to collapse a group of records
 - `tables::header-cell.sort-asc-button` - Sort button of a column sorted in ascending order
+- `tables::header-cell.sort-button` - Sort button of a column when it is currently not sorted
 - `tables::header-cell.sort-desc-button` - Sort button of a column sorted in descending order
 - `tables::reorder.handle` - Handle to grab in order to reorder a record with drag and drop
 - `tables::search-field` - Search input

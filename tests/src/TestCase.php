@@ -16,6 +16,7 @@ use Filament\Tables\TablesServiceProvider;
 use Filament\Tests\Models\User;
 use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Kirschbaum\PowerJoins\PowerJoinsServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -38,6 +39,7 @@ abstract class TestCase extends BaseTestCase
             InfolistsServiceProvider::class,
             LivewireServiceProvider::class,
             NotificationsServiceProvider::class,
+            PowerJoinsServiceProvider::class,
             SpatieLaravelSettingsPluginServiceProvider::class,
             SpatieLaravelTranslatablePluginServiceProvider::class,
             SupportServiceProvider::class,

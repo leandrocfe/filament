@@ -10,13 +10,19 @@ return [
 
     'columns' => [
 
+        'actions' => [
+            'label' => 'Akcia|Akcie',
+        ],
+
         'text' => [
+
             'actions' => [
                 'collapse_list' => 'Zobraziť o :count menej',
                 'expand_list' => 'Zobraziť o :count viac',
             ],
 
             'more_list_items' => 'a ďalších :count',
+
         ],
 
     ],

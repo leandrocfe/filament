@@ -83,9 +83,18 @@ class TestsActions
 
     public function assertTableActionDataSet(): Closure
     {
-        return function (array $data): static {
-            foreach (Arr::dot($data, prepend: 'mountedTableActionsData.' . array_key_last($this->instance()->mountedTableActionsData) . '.') as $key => $value) {
-                $this->assertSet($key, $value);
+        return function (array | Closure $state): static {
+            $mountedTableActionsData = $this->instance()->mountedTableActionsData;
+            $mountedTableActionIndex = array_key_last($mountedTableActionsData);
+
+            if ($state instanceof Closure) {
+                $state = $state($mountedTableActionsData[$mountedTableActionIndex] ?? []);
+            }
+
+            if (is_array($state)) {
+                foreach (Arr::dot($state, prepend: "mountedTableActionsData.{$mountedTableActionIndex}.") as $key => $value) {
+                    $this->assertSet($key, $value);
+                }
             }
 
             return $this;

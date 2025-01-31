@@ -150,7 +150,7 @@ trait CanGroupRecords
         }
 
         if ($this->defaultGroup instanceof Group) {
-            return $this->defaultGroup;
+            return $this->defaultGroup->table($this);
         }
 
         $group = $this->getGroup($this->defaultGroup);
@@ -159,7 +159,8 @@ trait CanGroupRecords
             return $group;
         }
 
-        return Group::make($this->defaultGroup);
+        return Group::make($this->defaultGroup)
+            ->table($this);
     }
 
     /**
@@ -174,7 +175,7 @@ trait CanGroupRecords
                     $group = Group::make($group);
                 }
 
-                $carry[$group->getId()] = $group;
+                $carry[$group->getId()] = $group->table($this);
 
                 return $carry;
             },

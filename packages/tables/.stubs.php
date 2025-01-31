@@ -13,7 +13,7 @@ namespace Livewire\Features\SupportTesting {
 
         public function setTableActionData(array $data): static {}
 
-        public function assertTableActionDataSet(array $data): static {}
+        public function assertTableActionDataSet(array | Closure $state): static {}
 
         public function callTableAction(string | array $name, $record = null, array $data = [], array $arguments = []): static {}
 
@@ -53,7 +53,7 @@ namespace Livewire\Features\SupportTesting {
 
         public function setTableBulkActionData(array $data): static {}
 
-        public function assertTableBulkActionDataSet(array $data): static {}
+        public function assertTableBulkActionDataSet(array | Closure $state): static {}
 
         public function callTableBulkAction(string $name, array | Collection $records, array $data = [], array $arguments = []): static {}
 
@@ -166,6 +166,12 @@ namespace Livewire\Features\SupportTesting {
         public function removeTableFilter(string $filter, ?string $field = null): static {}
 
         public function removeTableFilters(): static {}
+
+        public function assertTableFilterVisible(string $name): static {}
+
+        public function assertTableFilterHidden(string $name): static {}
+
+        public function assertTableFilterExists(string $name, ?Closure $checkFilterUsing = null): static {}
 
         public function assertCanSeeTableRecords(array | Collection $records, bool $inOrder = false): static {}
 

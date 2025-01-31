@@ -110,7 +110,7 @@ trait CanSearchRecords
     protected function extractTableSearchWords(string $search): array
     {
         return array_filter(
-            str_getcsv(preg_replace('/\s+/', ' ', $search), ' '),
+            str_getcsv(preg_replace('/\s+/', ' ', $search), separator: ' ', escape: '\\'),
             fn ($word): bool => filled($word),
         );
     }

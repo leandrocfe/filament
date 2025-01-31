@@ -62,7 +62,7 @@ it('can send invoices', function () {
         'invoice' => $invoice,
     ])
         ->mountInfolistAction('customer', 'send')
-        ->setInfolistActionData('customer', 'send', data: [
+        ->setInfolistActionData([
             'email' => $email = fake()->email(),
         ])
 });

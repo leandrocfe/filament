@@ -1919,6 +1919,23 @@ export default {
             deviceScaleFactor: 3,
         },
     },
+    'panels/navigation/user-menu': {
+        url: 'topbar',
+        selector: 'body',
+        viewport: {
+            width: 1080,
+            height: 640,
+            deviceScaleFactor: 0,
+        },
+        crop: (image) => {
+            return image.extract({ width: 1080, height: 540, left: 1080, top: 0 })
+        },
+        before: async (page) => {
+            await page.click('.fi-user-menu button')
+
+            await new Promise((resolve) => setTimeout(resolve, 500))
+        },
+    },
     'tables/example': {
         url: 'tables?table=example',
         selector: 'body',

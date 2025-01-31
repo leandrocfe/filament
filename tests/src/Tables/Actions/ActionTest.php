@@ -56,7 +56,10 @@ it('can set default action data when mounted', function () {
         ->mountTableAction('data')
         ->assertTableActionDataSet([
             'foo' => 'bar',
-        ]);
+        ])
+        ->assertTableActionDataSet(function (array $data): bool {
+            return $data['foo'] === 'bar';
+        });
 });
 
 it('can call an action with arguments', function () {

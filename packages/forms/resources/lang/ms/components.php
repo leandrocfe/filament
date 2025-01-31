@@ -11,15 +11,67 @@ return [
             ],
 
             'add' => [
+
                 'label' => 'Tambah ke :label',
+
+                'modal' => [
+
+                    'heading' => 'Tambah ke :label',
+
+                    'actions' => [
+
+                        'add' => [
+                            'label' => 'Tambah',
+                        ],
+
+                    ],
+
+                ],
+
             ],
 
             'add_between' => [
+
                 'label' => 'Masukkan',
+
+                'modal' => [
+
+                    'heading' => 'Add to :label',
+
+                    'actions' => [
+
+                        'add' => [
+                            'label' => 'Tambah',
+                        ],
+
+                    ],
+
+                ],
+
             ],
 
             'delete' => [
                 'label' => 'Padam',
+            ],
+
+            'edit' => [
+
+                'label' => 'Sunting',
+
+                'modal' => [
+
+                    'heading' => 'Sunting blok',
+
+                    'actions' => [
+
+                        'save' => [
+                            'label' => 'Simpan perubahan',
+                        ],
+
+                    ],
+
+                ],
+
             ],
 
             'reorder' => [
@@ -355,6 +407,7 @@ return [
         'actions' => [
 
             'create_option' => [
+                'label' => 'Cipta',
 
                 'modal' => [
 
@@ -377,6 +430,7 @@ return [
             ],
 
             'edit_option' => [
+                'label' => 'Sunting',
 
                 'modal' => [
 

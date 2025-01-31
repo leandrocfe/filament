@@ -121,8 +121,8 @@ return [
             'is_month' => [
 
                 'label' => [
-                    'direct' => 'Ezen hónapban',
-                    'inverse' => 'Nem ezen hónapban',
+                    'direct' => 'Ebben a hónapban',
+                    'inverse' => 'Nem ebben a hónapban',
                 ],
 
                 'summary' => [
@@ -135,8 +135,8 @@ return [
             'is_year' => [
 
                 'label' => [
-                    'direct' => 'Ezen évben',
-                    'inverse' => 'Nem ezen évben',
+                    'direct' => 'Ebben az évben',
+                    'inverse' => 'Nem ebben az évben',
                 ],
 
                 'summary' => [
@@ -175,7 +175,7 @@ return [
 
                 'summary' => [
                     'direct' => ':attribute egyenlő :number',
-                    'inverse' => ':attributenem egyenlő :number',
+                    'inverse' => ':attribute nem egyenlő :number',
                 ],
 
             ],

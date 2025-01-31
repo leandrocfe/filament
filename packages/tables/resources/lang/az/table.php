@@ -10,7 +10,17 @@ return [
 
     'columns' => [
 
+        'actions' => [
+            'label' => 'Əməliyyat|Əməliyyatlar',
+        ],
+
         'text' => [
+
+            'actions' => [
+                'collapse_list' => ':count az göstər',
+                'expand_list' => ':count daha çox göstər',
+            ],
+
             'more_list_items' => 'və :count daha',
         ],
 
@@ -105,6 +115,10 @@ return [
     'filters' => [
 
         'actions' => [
+
+            'apply' => [
+                'label' => 'Filtrləri tətbiq et',
+            ],
 
             'remove' => [
                 'label' => 'Filtri yığışdır',

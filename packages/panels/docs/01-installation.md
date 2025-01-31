@@ -86,7 +86,7 @@ You should also consider optimizing your Laravel app for production by running `
 
 ### Allowing users to access a panel
 
-By default, all `User` models can access Filament locally. However, when deploying to production, you must update your `App\Models\User.php` to implement the `FilamentUser` contract — ensuring that only the correct users can access your panel:
+By default, all `User` models can access Filament locally. However, when deploying to production or running unit tests, you must update your `App\Models\User.php` to implement the `FilamentUser` contract — ensuring that only the correct users can access your panel:
 
 ```php
 <?php
@@ -111,6 +111,12 @@ class User extends Authenticatable implements FilamentUser
 > If you don't complete these steps, a 403 Forbidden error will be returned when accessing the app in production.
 
 Learn more about [users](users).
+
+### Using a production-ready storage disk
+
+Filament has a storage disk defined in the [configuration](#publishing-configuration), which by default is set to `public`. You can set the `FILAMENT_FILESYSTEM_DISK` environment variable to change this.
+
+The `public` disk, while great for easy local development, is not suitable for production. It does not support file visibility, so features of Filament such as [file uploads](../forms/fields/file-upload) will create public files. In production, you need to use a production-ready disk such as `s3` with a private access policy, to prevent unauthorized access to the uploaded files.
 
 ## Publishing configuration
 

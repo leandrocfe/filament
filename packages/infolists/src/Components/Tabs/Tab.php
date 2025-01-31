@@ -20,7 +20,7 @@ class Tab extends Component
     final public function __construct(string $label)
     {
         $this->label($label);
-        $this->id(Str::slug($label));
+        $this->id(Str::slug(Str::transliterate($label, strict: true)));
     }
 
     public static function make(string $label): static

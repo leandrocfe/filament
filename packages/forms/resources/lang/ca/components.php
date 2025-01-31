@@ -12,10 +12,60 @@ return [
 
             'add' => [
                 'label' => 'Afegir a :label',
+
+                'modal' => [
+
+                    'heading' => 'Afegeix a :label',
+
+                    'actions' => [
+
+                        'add' => [
+                            'label' => 'Afegeix',
+                        ],
+
+                    ],
+
+                ],
+
             ],
 
             'add_between' => [
                 'label' => 'Inserir entre blocs',
+
+                'modal' => [
+
+                    'heading' => 'Afegir a :label',
+
+                    'actions' => [
+
+                        'add' => [
+                            'label' => 'Afegir',
+                        ],
+
+                    ],
+
+                ],
+
+            ],
+
+            'edit' => [
+
+                'label' => 'Edita',
+
+                'modal' => [
+
+                    'heading' => 'Edita bloc',
+
+                    'actions' => [
+
+                        'save' => [
+                            'label' => 'Desa els canvis',
+                        ],
+
+                    ],
+
+                ],
+
             ],
 
             'delete' => [

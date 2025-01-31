@@ -10,6 +10,10 @@ return [
 
     'columns' => [
 
+        'actions' => [
+            'label' => 'Hành động|Hành động',
+        ],
+
         'text' => [
 
             'actions' => [

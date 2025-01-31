@@ -59,7 +59,7 @@ Below is a list of available chart widget classes which you may extend, and thei
 - Bubble chart - [Chart.js documentation](https://www.chartjs.org/docs/latest/charts/bubble)
 - Doughnut chart - [Chart.js documentation](https://www.chartjs.org/docs/latest/charts/doughnut)
 - Line chart - [Chart.js documentation](https://www.chartjs.org/docs/latest/charts/line)
-- Pie chart - [Chart.js documentation](https://www.chartjs.org/docs/latest/charts/doughnut)
+- Pie chart - [Chart.js documentation](https://www.chartjs.org/docs/latest/charts/doughnut.html#pie)
 - Polar area chart - [Chart.js documentation](https://www.chartjs.org/docs/latest/charts/polar)
 - Radar chart - [Chart.js documentation](https://www.chartjs.org/docs/latest/charts/radar)
 - Scatter chart - [Chart.js documentation](https://www.chartjs.org/docs/latest/charts/scatter)

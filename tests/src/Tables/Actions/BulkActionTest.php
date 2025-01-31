@@ -53,7 +53,10 @@ it('can set default bulk action data when mounted', function () {
         ->mountTableBulkAction('data', records: $posts)
         ->assertTableBulkActionDataSet([
             'foo' => 'bar',
-        ]);
+        ])
+        ->assertTableBulkActionDataSet(function (array $data): bool {
+            return $data['foo'] === 'bar';
+        });
 });
 
 it('can call a bulk action with arguments', function () {

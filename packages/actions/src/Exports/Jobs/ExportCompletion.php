@@ -74,6 +74,13 @@ class ExportCompletion implements ShouldQueue
                     $this->formats,
                 )),
             )
-            ->sendToDatabase($this->export->user, isEventDispatched: true);
+            ->when(
+                ($this->connection === 'sync') ||
+                    (blank($this->connection) && (config('queue.default') === 'sync')),
+                fn (Notification $notification) => $notification
+                    ->persistent()
+                    ->send(),
+                fn (Notification $notification) => $notification->sendToDatabase($this->export->user, isEventDispatched: true),
+            );
     }
 }

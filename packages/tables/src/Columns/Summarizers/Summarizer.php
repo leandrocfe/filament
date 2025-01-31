@@ -7,7 +7,6 @@ use Filament\Support\Components\ViewComponent;
 use Filament\Support\Concerns\HasExtraAttributes;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\DB;
 
 class Summarizer extends ViewComponent
 {
@@ -127,7 +126,7 @@ class Summarizer extends ViewComponent
 
         $asName = (string) str($query->getModel()->getTable())->afterLast('.');
 
-        $query = DB::connection($query->getModel()->getConnectionName())
+        $query = $query->getModel()->resolveConnection($query->getModel()->getConnectionName())
             ->table($query->toBase(), $asName);
 
         if ($this->hasQueryModification()) {

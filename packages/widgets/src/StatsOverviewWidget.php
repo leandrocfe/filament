@@ -15,6 +15,10 @@ class StatsOverviewWidget extends Widget
 
     protected int | string | array $columnSpan = 'full';
 
+    protected ?string $heading = null;
+
+    protected ?string $description = null;
+
     /**
      * @var view-string
      */
@@ -51,6 +55,16 @@ class StatsOverviewWidget extends Widget
     protected function getCards(): array
     {
         return [];
+    }
+
+    protected function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    protected function getHeading(): ?string
+    {
+        return $this->heading;
     }
 
     /**

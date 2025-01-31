@@ -34,7 +34,7 @@
                             return
                         }
 
-                        let newState = $refs.newState.value
+                        let newState = $refs.newState.value.replaceAll('\\'+String.fromCharCode(34), String.fromCharCode(34))
 
                         if (state === newState) {
                             return
@@ -50,7 +50,7 @@
         $attributes
             ->merge($getExtraAttributes(), escape: false)
             ->class([
-                'fi-ta-select',
+                'fi-ta-select w-full min-w-48',
                 'px-3 py-4' => ! $isInline(),
             ])
     }}
@@ -72,7 +72,7 @@
                     theme: $store.theme,
                 }
         "
-        x-on:click.stop=""
+        x-on:click.stop.prevent=""
     >
         <x-filament::input.select
             :disabled="$isDisabled"

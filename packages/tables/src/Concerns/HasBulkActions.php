@@ -350,7 +350,7 @@ trait HasBulkActions
         $table = $this->getTable();
 
         if (
-            $shouldFetchSelectedRecords ||
+            (! $shouldFetchSelectedRecords) ||
             (! ($table->getRelationship() instanceof BelongsToMany && $table->allowsDuplicates()))
         ) {
             $query = $table->getQuery()->whereKey($this->selectedTableRecords);

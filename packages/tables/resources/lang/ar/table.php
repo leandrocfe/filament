@@ -10,6 +10,10 @@ return [
 
     'columns' => [
 
+        'actions' => [
+            'label' => 'إجراء | إجراءات',
+        ],
+
         'text' => [
 
             'actions' => [

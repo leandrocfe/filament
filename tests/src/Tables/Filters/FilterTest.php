@@ -1,5 +1,6 @@
 <?php
 
+use Filament\Tables\Filters\Filter;
 use Filament\Tests\Models\Post;
 use Filament\Tests\Tables\Fixtures\PostsTable;
 use Filament\Tests\Tables\TestCase;
@@ -100,4 +101,21 @@ it('can use a custom attribute for the `SelectFilter`', function () {
         ->assertCanSeeTableRecords($unpublishedPosts)
         ->filterTable('select_filter_attribute', true)
         ->assertCanNotSeeTableRecords($unpublishedPosts);
+});
+
+it('can assert a filter exists with a given configuration', function () {
+    livewire(PostsTable::class)
+        ->assertTableFilterExists('is_published', function (Filter $filter): bool {
+            return $filter->getLabel() === 'Is published';
+        });
+});
+
+it('can check if a filter is visible', function (): void {
+    livewire(PostsTable::class)
+        ->assertTableFilterVisible('is_published');
+});
+
+it('can check if a filter is hidden', function (): void {
+    livewire(PostsTable::class)
+        ->assertTableFilterHidden('hidden_filter');
 });
