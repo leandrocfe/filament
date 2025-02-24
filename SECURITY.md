@@ -2,11 +2,11 @@
 
 ## Supported Versions
 
-| Version | Supported |
-|---------| ------------------ |
-| 1.x     | :white_check_mark: |
-| 2.x     | :white_check_mark: |
-| 3.x     | :white_check_mark: |
+| Version | Supported | EOSL Date        |
+|---------| --------- | ---------------- |
+| 1.x     | ⚠️        | 1st July 2025    |
+| 2.x     | ⚠️        | 1st January 2026 |
+| 3.x     | ✅        | TBA              |
 
 ## Reporting a Vulnerability
 

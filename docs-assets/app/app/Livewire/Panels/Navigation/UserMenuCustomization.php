@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Panels\Navigation;
 
 use Filament\Navigation\MenuItem;
 use Filament\Pages\Page;
 
-class Topbar extends Page
+class UserMenuCustomization extends Page
 {
-    protected static string $view = 'livewire.topbar';
+    protected static string $view = 'livewire.panels.navigation.empty';
 
     public function mount()
     {

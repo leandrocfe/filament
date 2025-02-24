@@ -61,12 +61,18 @@ class ContainsOperator extends Operator
 
         $isPostgres = $databaseConnection->getDriverName() === 'pgsql';
 
-        if ((Str::lower($qualifiedColumn) !== $qualifiedColumn) && $isPostgres) {
-            $qualifiedColumn = (string) str($qualifiedColumn)->wrap('"');
-        }
-
         if ($isPostgres) {
-            $qualifiedColumn = new Expression("lower({$qualifiedColumn}::text)");
+            [$table, $column] = explode('.', $qualifiedColumn);
+
+            if (Str::lower($table) !== $table) {
+                $table = (string) str($table)->wrap('"');
+            }
+
+            if (Str::lower($column) !== $column) {
+                $column = (string) str($column)->wrap('"');
+            }
+
+            $qualifiedColumn = new Expression("lower({$table}.{$column}::text)");
             $text = Str::lower($text);
         }
 

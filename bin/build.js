@@ -87,13 +87,6 @@ corePackages.forEach((packageName) => {
 compile({
     ...defaultOptions,
     platform: 'browser',
-    entryPoints: [`./node_modules/async-alpine/dist/async-alpine.script.js`],
-    outfile: `./packages/support/dist/async-alpine.js`,
-})
-
-compile({
-    ...defaultOptions,
-    platform: 'browser',
     entryPoints: [`./packages/panels/resources/js/echo.js`],
     outfile: `./packages/panels/dist/echo.js`,
 })
