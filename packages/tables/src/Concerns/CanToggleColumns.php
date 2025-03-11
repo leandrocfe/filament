@@ -80,7 +80,7 @@ trait CanToggleColumns
 
     public function getTableColumnToggleFormStateSessionKey(): string
     {
-        $table = class_basename($this::class);
+        $table = md5($this::class);
 
         return "tables.{$table}_toggled_columns";
     }

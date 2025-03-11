@@ -142,7 +142,7 @@ trait CanSortRecords
 
     public function getTableSortSessionKey(): string
     {
-        $table = class_basename($this::class);
+        $table = md5($this::class);
 
         return "tables.{$table}_sort";
     }

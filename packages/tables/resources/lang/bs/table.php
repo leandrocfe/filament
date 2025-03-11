@@ -57,6 +57,8 @@ return [
 
     'filters' => [
 
+        'heading' => 'Filteri',
+
         'actions' => [
 
             'remove' => [

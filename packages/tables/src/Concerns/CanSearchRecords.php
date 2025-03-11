@@ -273,14 +273,14 @@ trait CanSearchRecords
 
     public function getTableSearchSessionKey(): string
     {
-        $table = class_basename($this::class);
+        $table = md5($this::class);
 
         return "tables.{$table}_search";
     }
 
     public function getTableColumnSearchesSessionKey(): string
     {
-        $table = class_basename($this::class);
+        $table = md5($this::class);
 
         return "tables.{$table}_column_search";
     }

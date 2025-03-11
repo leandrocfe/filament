@@ -179,9 +179,9 @@ test('the `in()` rule behaves the same as Laravel\'s', function (?string $input,
         'input' => 'foo',
         'allowed' => 'bar',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => 'bar'),
+        'allowed' => fn () => 'bar',
     ],
     [
         'input' => 'foo',
@@ -195,9 +195,9 @@ test('the `in()` rule behaves the same as Laravel\'s', function (?string $input,
         'input' => 'foo',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => null,
@@ -211,9 +211,9 @@ test('the `in()` rule behaves the same as Laravel\'s', function (?string $input,
         'input' => null,
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => null,
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => '',
@@ -227,9 +227,9 @@ test('the `in()` rule behaves the same as Laravel\'s', function (?string $input,
         'input' => '',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => '',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
 ]);
 
@@ -304,9 +304,9 @@ test('the `notIn()` rule behaves the same as Laravel\'s', function (?string $inp
         'input' => 'foo',
         'allowed' => 'bar',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => 'bar'),
+        'allowed' => fn () => 'bar',
     ],
     [
         'input' => 'foo',
@@ -320,9 +320,9 @@ test('the `notIn()` rule behaves the same as Laravel\'s', function (?string $inp
         'input' => 'foo',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => null,
@@ -336,9 +336,9 @@ test('the `notIn()` rule behaves the same as Laravel\'s', function (?string $inp
         'input' => null,
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => null,
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => '',
@@ -352,9 +352,9 @@ test('the `notIn()` rule behaves the same as Laravel\'s', function (?string $inp
         'input' => '',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => '',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
 ]);
 
@@ -438,9 +438,9 @@ test('the `startsWith()` rule behaves the same as Laravel\'s', function (?string
         'input' => 'foo',
         'allowed' => 'bar',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => 'bar'),
+        'allowed' => fn () => 'bar',
     ],
     [
         'input' => 'foo',
@@ -454,9 +454,9 @@ test('the `startsWith()` rule behaves the same as Laravel\'s', function (?string
         'input' => 'foo',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => null,
@@ -470,9 +470,9 @@ test('the `startsWith()` rule behaves the same as Laravel\'s', function (?string
         'input' => null,
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => null,
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => '',
@@ -486,9 +486,9 @@ test('the `startsWith()` rule behaves the same as Laravel\'s', function (?string
         'input' => '',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => '',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
 ]);
 
@@ -572,9 +572,9 @@ test('the `doesntStartWith()` rule behaves the same as Laravel\'s', function (?s
         'input' => 'foo',
         'allowed' => 'bar',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => 'bar'),
+        'allowed' => fn () => 'bar',
     ],
     [
         'input' => 'foo',
@@ -588,9 +588,9 @@ test('the `doesntStartWith()` rule behaves the same as Laravel\'s', function (?s
         'input' => 'foo',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => null,
@@ -604,9 +604,9 @@ test('the `doesntStartWith()` rule behaves the same as Laravel\'s', function (?s
         'input' => null,
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => null,
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => '',
@@ -620,9 +620,9 @@ test('the `doesntStartWith()` rule behaves the same as Laravel\'s', function (?s
         'input' => '',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => '',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
 ]);
 
@@ -706,9 +706,9 @@ test('the `endsWith()` rule behaves the same as Laravel\'s', function (?string $
         'input' => 'foo',
         'allowed' => 'bar',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => 'bar'),
+        'allowed' => fn () => 'bar',
     ],
     [
         'input' => 'foo',
@@ -722,9 +722,9 @@ test('the `endsWith()` rule behaves the same as Laravel\'s', function (?string $
         'input' => 'foo',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => null,
@@ -738,9 +738,9 @@ test('the `endsWith()` rule behaves the same as Laravel\'s', function (?string $
         'input' => null,
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => null,
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => '',
@@ -754,9 +754,9 @@ test('the `endsWith()` rule behaves the same as Laravel\'s', function (?string $
         'input' => '',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => '',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
 ]);
 
@@ -840,9 +840,9 @@ test('the `doesntEndWith()` rule behaves the same as Laravel\'s', function (?str
         'input' => 'foo',
         'allowed' => 'bar',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => 'bar'),
+        'allowed' => fn () => 'bar',
     ],
     [
         'input' => 'foo',
@@ -856,9 +856,9 @@ test('the `doesntEndWith()` rule behaves the same as Laravel\'s', function (?str
         'input' => 'foo',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => 'foo',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => null,
@@ -872,9 +872,9 @@ test('the `doesntEndWith()` rule behaves the same as Laravel\'s', function (?str
         'input' => null,
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => null,
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
     [
         'input' => '',
@@ -888,9 +888,9 @@ test('the `doesntEndWith()` rule behaves the same as Laravel\'s', function (?str
         'input' => '',
         'allowed' => '',
     ],
-    [
+    fn () => [
         'input' => '',
-        'allowed' => fn () => (fn () => null),
+        'allowed' => fn () => null,
     ],
 ]);
 
