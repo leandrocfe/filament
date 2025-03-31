@@ -25,7 +25,12 @@ class XlsxDownloader implements Downloader
 
         if ($disk->exists($filePath = $directory . DIRECTORY_SEPARATOR . $fileName)) {
             $response = $disk->download($filePath);
-            ob_end_clean();
+
+            if (ob_get_length() > 0) {
+                ob_end_clean();
+            }
+
+            $response->headers->set('X-Vapor-Base64-Encode', 'True');
 
             return $response;
         }
