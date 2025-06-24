@@ -66,7 +66,7 @@ class AssociateAction extends Action
 
         $this->successNotificationTitle(__('filament-actions::associate.single.notifications.associated.title'));
 
-        $this->color('gray');
+        $this->defaultColor('gray');
 
         $this->form(fn (): array => [$this->getRecordSelect()]);
 
@@ -201,6 +201,7 @@ class AssociateAction extends Action
             if ($this->modifyRecordSelectOptionsQueryUsing) {
                 $relationshipQuery = $this->evaluate($this->modifyRecordSelectOptionsQueryUsing, [
                     'query' => $relationshipQuery,
+                    'search' => $search,
                 ]) ?? $relationshipQuery;
             }
 

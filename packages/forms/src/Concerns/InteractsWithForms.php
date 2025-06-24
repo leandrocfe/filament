@@ -4,6 +4,7 @@ namespace Filament\Forms\Concerns;
 
 use Closure;
 use Exception;
+use Filament\Forms\ComponentContainer;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Form;
 use Filament\Infolists\Infolist;
@@ -12,6 +13,7 @@ use Filament\Support\Contracts\TranslatableContentDriver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Renderless;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -27,6 +29,9 @@ trait InteractsWithForms
      */
     public array $componentFileAttachments = [];
 
+    #[Locked]
+    public bool $areFormStateUpdateHooksDisabledForTesting = false;
+
     /**
      * @var array<string, Form>
      */
@@ -35,6 +40,8 @@ trait InteractsWithForms
     protected bool $hasCachedForms = false;
 
     protected bool $isCachingForms = false;
+
+    protected ?ComponentContainer $currentlyValidatingForm = null;
 
     protected bool $hasFormsModalRendered = false;
 
@@ -253,8 +260,12 @@ trait InteractsWithForms
      */
     protected function prepareForValidation($attributes): array
     {
-        foreach ($this->getCachedForms() as $form) {
-            $attributes = $form->mutateStateForValidation($attributes);
+        if ($this->currentlyValidatingForm) {
+            $attributes = $this->currentlyValidatingForm->mutateStateForValidation($attributes);
+        } else {
+            foreach ($this->getCachedForms() as $form) {
+                $attributes = $form->mutateStateForValidation($attributes);
+            }
         }
 
         return $attributes;
@@ -299,9 +310,31 @@ trait InteractsWithForms
 
     public function updatedInteractsWithForms(string $statePath): void
     {
+        if (app()->runningUnitTests() && $this->areFormStateUpdateHooksDisabledForTesting) {
+            return;
+        }
+
         foreach ($this->getCachedForms() as $form) {
             $form->callAfterStateUpdated($statePath);
         }
+    }
+
+    public function disableFormStateUpdateHooksForTesting(): void
+    {
+        if (! app()->runningUnitTests()) {
+            return;
+        }
+
+        $this->areFormStateUpdateHooksDisabledForTesting = true;
+    }
+
+    public function enableFormStateUpdateHooksForTesting(): void
+    {
+        if (! app()->runningUnitTests()) {
+            return;
+        }
+
+        $this->areFormStateUpdateHooksDisabledForTesting = false;
     }
 
     protected function cacheForm(string $name, Form | Closure | null $form): ?Form
@@ -505,5 +538,10 @@ trait InteractsWithForms
     public function mountedFormComponentActionInfolist(): Infolist
     {
         return $this->getMountedFormComponentAction()->getInfolist();
+    }
+
+    public function currentlyValidatingForm(?ComponentContainer $form): void
+    {
+        $this->currentlyValidatingForm = $form;
     }
 }

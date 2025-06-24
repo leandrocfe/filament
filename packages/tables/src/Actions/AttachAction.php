@@ -66,7 +66,7 @@ class AttachAction extends Action
 
         $this->successNotificationTitle(__('filament-actions::attach.single.notifications.attached.title'));
 
-        $this->color('gray');
+        $this->defaultColor('gray');
 
         $this->form(fn (): array => [$this->getRecordSelect()]);
 
@@ -203,6 +203,7 @@ class AttachAction extends Action
             if ($this->modifyRecordSelectOptionsQueryUsing) {
                 $relationshipQuery = $this->evaluate($this->modifyRecordSelectOptionsQueryUsing, [
                     'query' => $relationshipQuery,
+                    'search' => $search,
                 ]) ?? $relationshipQuery;
             }
 

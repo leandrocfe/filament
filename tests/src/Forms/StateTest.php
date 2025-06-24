@@ -486,7 +486,7 @@ test('hidden components are excluded from state dehydration except if they are m
         ->fill();
 
     expect($container)
-        ->dehydrateState()->not()->toBe([]);
+        ->dehydrateState()->data->not()->toBe([]);
 
     $container = ComponentContainer::make(Livewire::make())
         ->statePath('data')
@@ -505,7 +505,120 @@ test('hidden components are excluded from state dehydration except if they are m
         ->fill();
 
     expect($container)
-        ->dehydrateState()->not()->toBe([]);
+        ->dehydrateState()->data->not()->toBe([]);
+});
+
+test('hidden components are excluded from state dehydration even if their parent component has a state path', function () {
+    $container = ComponentContainer::make(Livewire::make())
+        ->statePath('data')
+        ->components([
+            (new Component)
+                ->statePath('nested')
+                ->schema([
+                    (new Component)
+                        ->statePath(Str::random())
+                        ->default(Str::random())
+                        ->hidden(),
+                ]),
+        ])
+        ->fill();
+
+    expect($container)
+        ->dehydrateState()->toBe([
+            'data' => [
+                'nested' => [],
+            ],
+        ]);
+});
+
+test('components are not excluded from state dehydration if there is another dehydrated field with the same name', function () {
+    $container = ComponentContainer::make(Livewire::make())
+        ->statePath('data')
+        ->components([
+            (new Component)
+                ->statePath($statePath = Str::random())
+                ->default(Str::random())
+                ->dehydrated(false),
+            (new Component)
+                ->statePath($statePath)
+                ->default(Str::random()),
+        ])
+        ->fill();
+
+    expect($container)
+        ->dehydrateState()->data->not()->toBe([]);
+
+    $container = ComponentContainer::make(Livewire::make())
+        ->statePath('data')
+        ->components([
+            (new Component)
+                ->statePath($statePath = Str::random())
+                ->default(Str::random()),
+            (new Component)
+                ->statePath($statePath)
+                ->default(Str::random())
+                ->dehydrated(false),
+        ])
+        ->fill();
+
+    expect($container)
+        ->dehydrateState()->data->not()->toBe([]);
+});
+
+test('hidden components are not excluded from state dehydration if there is another visible field with the same name', function () {
+    $container = ComponentContainer::make(Livewire::make())
+        ->statePath('data')
+        ->components([
+            (new Component)
+                ->statePath($statePath = Str::random())
+                ->default(Str::random())
+                ->hidden(),
+            (new Component)
+                ->statePath($statePath)
+                ->default(Str::random()),
+        ])
+        ->fill();
+
+    expect($container)
+        ->dehydrateState()->data->not()->toBe([]);
+
+    $container = ComponentContainer::make(Livewire::make())
+        ->statePath('data')
+        ->components([
+            (new Component)
+                ->statePath($statePath = Str::random())
+                ->default(Str::random()),
+            (new Component)
+                ->statePath($statePath)
+                ->default(Str::random())
+                ->hidden(),
+        ])
+        ->fill();
+
+    expect($container)
+        ->dehydrateState()->data->not()->toBe([]);
+});
+
+test('components in a hidden parent component with a grandparent component with a state path are excluded from state dehydration', function () {
+    $container = ComponentContainer::make(Livewire::make())
+        ->statePath('data')
+        ->components([
+            (new Component)
+                ->statePath('data')
+                ->schema([
+                    (new Component)
+                        ->schema([
+                            (new Component)
+                                ->statePath(Str::random())
+                                ->default(Str::random()),
+                        ])
+                        ->hidden(),
+                ]),
+        ])
+        ->fill();
+
+    expect($container)
+        ->dehydrateState()->toBe(['data' => ['data' => []]]);
 });
 
 test('disabled components are excluded from state dehydration', function () {
@@ -554,7 +667,7 @@ test('disabled components are excluded from state dehydration except if they are
         ->fill();
 
     expect($container)
-        ->dehydrateState()->not()->toBe([]);
+        ->dehydrateState()->data->not()->toBe([]);
 });
 
 test('disabled components are excluded from state dehydration if their parent component is disabled and not marked as dehydrated', function () {

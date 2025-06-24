@@ -89,7 +89,7 @@ trait HasState
         return $this;
     }
 
-    public function callAfterStateUpdated(): static
+    public function callAfterStateUpdated(bool $shouldBubbleToParents = true): static
     {
         foreach ($this->afterStateUpdated as $callback) {
             $runId = spl_object_id($callback) . md5(json_encode($this->getState()));
@@ -101,6 +101,10 @@ trait HasState
             $this->callAfterStateUpdatedHook($callback);
 
             store($this)->push('executedAfterStateUpdatedCallbacks', value: $runId, iKey: $runId);
+        }
+
+        if ($shouldBubbleToParents) {
+            $this->getContainer()->getParentComponent()?->callAfterStateUpdated();
         }
 
         return $this;
@@ -170,7 +174,17 @@ trait HasState
     {
         if (! ($isDehydrated && $this->isDehydrated())) {
             if ($this->hasStatePath()) {
-                Arr::forget($state, $this->getStatePath());
+                $rootContainer = $this->getContainer();
+
+                while (! $rootContainer->isRoot()) {
+                    $rootContainer = $rootContainer->getParentComponent()->getContainer();
+                }
+
+                $statePath = $this->getStatePath();
+
+                if (! $rootContainer->hasDehydratedComponent($statePath)) {
+                    Arr::forget($state, $statePath);
+                }
 
                 return;
             }
@@ -179,21 +193,17 @@ trait HasState
             // we need to dehydrate the child component containers while
             // informing them that they are not dehydrated, so that their
             // child components get removed from the state.
-            foreach ($this->getChildComponentContainers() as $container) {
+            foreach ($this->getChildComponentContainers(withHidden: true) as $container) {
                 $container->dehydrateState($state, isDehydrated: false);
             }
 
             return;
         }
 
-        if ($this->getStatePath(isAbsolute: false)) {
+        if ($this->hasStatePath()) {
             foreach ($this->getStateToDehydrate() as $key => $value) {
                 Arr::set($state, $key, $value);
             }
-        }
-
-        if ($this->isHiddenAndNotDehydrated()) {
-            return;
         }
 
         foreach ($this->getChildComponentContainers(withHidden: true) as $container) {
@@ -438,7 +448,11 @@ trait HasState
 
     public function isDehydrated(): bool
     {
-        return (bool) $this->evaluate($this->isDehydrated);
+        if (! $this->evaluate($this->isDehydrated)) {
+            return false;
+        }
+
+        return ! $this->isHiddenAndNotDehydrated();
     }
 
     public function isDehydratedWhenHidden(): bool

@@ -40,7 +40,7 @@
         {{
             $attributes
                 ->merge($getExtraAttributes(), escape: false)
-                ->class(['fi-fo-builder grid gap-y-4'])
+                ->class(['fi-fo-builder grid grid-cols-1 gap-y-4'])
         }}
     >
         @if ($collapseAllActionIsVisible || $expandAllActionIsVisible)
@@ -101,6 +101,7 @@
                     @endphp
 
                     <li
+                        wire:ignore.self
                         wire:key="{{ $this->getId() }}.{{ $item->getStatePath() }}.{{ $field::class }}.item"
                         x-data="{
                             isCollapsed: @js($isCollapsed($item)),
@@ -110,7 +111,7 @@
                         x-on:expand="isCollapsed = false"
                         x-sortable-item="{{ $uuid }}"
                         class="fi-fo-builder-item rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-white/5 dark:ring-white/10"
-                        x-bind:class="{ 'fi-collapsed overflow-hidden': isCollapsed }"
+                        x-bind:class="{ 'fi-collapsed': isCollapsed }"
                     >
                         @if ($reorderActionIsVisible || $moveUpActionIsVisible || $moveDownActionIsVisible || $hasBlockIcons || $hasBlockLabels || $editActionIsVisible || $cloneActionIsVisible || $deleteActionIsVisible || $isCollapsible || $visibleExtraItemActions)
                             <div

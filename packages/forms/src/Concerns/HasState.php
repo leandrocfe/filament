@@ -27,13 +27,13 @@ trait HasState
     {
         foreach ($this->getComponents(withHidden: true) as $component) {
             if ($component->getStatePath() === $path) {
-                $component->callAfterStateUpdated();
+                $component->callAfterStateUpdated(shouldBubbleToParents: false);
 
                 return true;
             }
 
             if (str($path)->startsWith("{$component->getStatePath()}.")) {
-                $component->callAfterStateUpdated();
+                $component->callAfterStateUpdated(shouldBubbleToParents: false);
             }
 
             foreach ($component->getChildComponentContainers() as $container) {
@@ -72,14 +72,31 @@ trait HasState
     public function dehydrateState(array &$state = [], bool $isDehydrated = true): array
     {
         foreach ($this->getComponents(withHidden: true) as $component) {
-            if ($component->isHiddenAndNotDehydrated()) {
-                continue;
-            }
-
             $component->dehydrateState($state, $isDehydrated);
         }
 
         return $state;
+    }
+
+    public function hasDehydratedComponent(string $statePath): bool
+    {
+        foreach ($this->getComponents(withHidden: true) as $component) {
+            if (! $component->isDehydrated()) {
+                continue;
+            }
+
+            if ($component->hasStatePath() && ($component->getStatePath() === $statePath)) {
+                return true;
+            }
+
+            foreach ($component->getChildComponentContainers(withHidden: true) as $container) {
+                if ($container->hasDehydratedComponent($statePath)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -89,10 +106,6 @@ trait HasState
     public function mutateDehydratedState(array &$state = []): array
     {
         foreach ($this->getComponents(withHidden: true) as $component) {
-            if ($component->isHiddenAndNotDehydrated()) {
-                continue;
-            }
-
             if (! $component->isDehydrated()) {
                 continue;
             }

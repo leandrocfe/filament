@@ -24,11 +24,6 @@ trait HasCellState
 
     protected ?string $inverseRelationshipName = null;
 
-    /**
-     * @var array<string, mixed>
-     */
-    protected array $cachedState = [];
-
     public function inverseRelationship(?string $name): static
     {
         $this->inverseRelationshipName = $name;
@@ -76,16 +71,6 @@ trait HasCellState
 
     public function getState(): mixed
     {
-        $record = $this->getRecord();
-
-        if (! $record) {
-            return null;
-        }
-
-        if (array_key_exists($record->getKey(), $this->cachedState)) {
-            return $this->cachedState[$record->getKey()];
-        }
-
         $state = ($this->getStateUsing !== null) ?
             $this->evaluate($this->getStateUsing) :
             $this->getStateFromRecord();
@@ -101,7 +86,7 @@ trait HasCellState
             $state = $this->getDefaultState();
         }
 
-        return $this->cachedState[$record->getKey()] = $state;
+        return $state;
     }
 
     public function getStateFromRecord(): mixed
