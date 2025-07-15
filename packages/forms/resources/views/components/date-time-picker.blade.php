@@ -17,6 +17,7 @@
     $suffixIcon = $getSuffixIcon();
     $suffixLabel = $getSuffixLabel();
     $statePath = $getStatePath();
+    $disabledDates = $getDisabledDates();
 @endphp
 
 <x-dynamic-component
@@ -80,6 +81,15 @@
                             shouldCloseOnDateSelection: @js($shouldCloseOnDateSelection()),
                             state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')") }},
                         })"
+                wire:ignore
+                wire:key="{{ $this->getId() }}.{{ $statePath }}.{{ $field::class }}.{{
+                    substr(md5(serialize([
+                        'disabledDates' => $disabledDates,
+                        'isDisabled' => $isDisabled,
+                        'maxDate' => $maxDate,
+                        'minDate' => $minDate,
+                    ])), 0, 64)
+                }}"
                 x-on:keydown.esc="isOpen() && $event.stopPropagation()"
                 {{
                     $attributes
@@ -95,7 +105,7 @@
                 <input
                     x-ref="disabledDates"
                     type="hidden"
-                    value="{{ json_encode($getDisabledDates()) }}"
+                    value="{{ json_encode($disabledDates) }}"
                 />
 
                 <button
